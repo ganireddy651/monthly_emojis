@@ -1,0 +1,95 @@
+.app-container {
+  background-color: #1e293b;
+  min-height: 100vh;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.main-heading {
+  color: #f0bb03;
+  font-weight: 600;
+  font-family: 'Roboto';
+}
+.main-container {
+  display: flex;
+  align-items: center;
+}
+.calender-container {
+  background-color: #000000;
+  height: 600px;
+  width: 600px;
+  padding: 30px 10px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 16px 0px #bfbfbf;
+}
+.month {
+  color: #ffffff;
+  font-family: 'Roboto';
+}
+.days-list-container {
+  display: flex;
+
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
+.dates-list-container {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  flex-wrap: wrap;
+}
+.emojis-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30px;
+}
+.emojis-container {
+  background-color: #000000;
+  height: 200px;
+  width: 400px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 16px 0px #bfbfbf;
+}
+.emoji-list-container {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dropdown-container {
+  background-color: #000000;
+  height: 200px;
+  width: 400px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 16px 0px #bfbfbf;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+}
+.dropdown {
+  height: 35px;
+  width: 130px;
+  margin: 10px;
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 5px;
+  outline: none;
+}
+.count {
+  color: #ffffff;
+  font-size: 45px;
+  font-weight: 600;
+  margin: 0;
+}
