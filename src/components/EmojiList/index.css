@@ -11,3 +11,12 @@
   height: 40px;
   width: 40px;
 }
+.button-active {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  float: left;
+}
+.active-name {
+  color: #ffffff;
+}

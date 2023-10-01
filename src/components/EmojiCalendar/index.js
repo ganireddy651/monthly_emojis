@@ -1,9 +1,4 @@
-import {Component} from 'react'
-import DaysList from '../DaysList'
-import DatesList from '../DatesList'
-import EmojiList from '../EmojiList'
-import EmojiName from '../EmojiName'
-import WeekDays from '../WeekDays'
+import React, {Component} from 'react'
 import './index.css'
 
 const emojisList = [
@@ -258,94 +253,100 @@ const initialDatesList = [
     emojiName: '',
   },
 ]
-class MonthlyEmojis extends Component {
-  state = {
-    active: emojisList[0].id,
-    count: 0,
-    emoji: emojisList[0].emojiName,
-    days: daysList[0].day,
-    dates: initialDatesList,
+
+class EmojiCalendar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      activeEmoji: emojisList[0], // Initially, the first emoji is active
+      selectedDay: 'Sun', // Initially, 'Sun' is selected
+      datesList: initialDatesList,
+    }
   }
 
-  activeEmoji = id => {
-    this.setState({active: id})
+  handleEmojiClick = emoji => {
+    this.setState({activeEmoji: emoji})
   }
 
-  onChangeEmoji = e => {
-    this.setState({emoji: e.target.value})
-  }
+  handleDayClick = day => {
+    const {datesList, activeEmoji} = this.state
+    const updatedDatesList = [...datesList]
 
-  onChangeDay = e => {
-    this.setState({days: e.target.value})
-  }
+    const dateItem = updatedDatesList.find(item => item.date === day)
 
-  onClickDateButton = (emojiUrl, id) => {}
+    if (!dateItem) {
+      // If there's no emoji in the date item, set the active emoji
+      updatedDatesList.push({date: day, emojiName: activeEmoji.emojiName})
+    } else if (dateItem.emojiName !== activeEmoji.emojiName) {
+      // If the emoji in the date item is different from the active emoji, replace it
+      dateItem.emojiName = activeEmoji.emojiName
+    } else {
+      // If the emoji in the date item is the same as the active emoji, remove it
+      const index = updatedDatesList.indexOf(dateItem)
+      updatedDatesList.splice(index, 1)
+    }
+
+    this.setState({datesList: updatedDatesList, selectedDay: day})
+  }
 
   render() {
-    const {active, count, emoji, days, dates} = this.state
-    console.log(active)
+    const {activeEmoji, selectedDay, datesList} = this.state
 
     return (
-      <div className="app-container">
-        <h1 className="main-heading">Monthly Emojis</h1>
-        <div className="main-container">
-          <div className="calender-container">
-            <h1 className="month">January</h1>
-            <ul className="days-list-container">
-              {daysList.map(eachDay => (
-                <DaysList eachDay={eachDay} key={eachDay.id} />
-              ))}
-            </ul>
-            <ul className="dates-list-container">
-              {dates.map(eachDate => (
-                <DatesList
-                  eachDate={eachDate}
-                  key={eachDate.id}
-                  //   onClickDateButton={this.onClickDateButton}
-                />
-              ))}
-            </ul>
-          </div>
-          <div className="emojis-dropdown-container">
-            <div className="emojis-container">
-              <ul className="emoji-list-container">
-                {emojisList.map(eachEmoji => (
-                  <EmojiList
-                    eachEmoji={eachEmoji}
-                    key={eachEmoji.id}
-                    activeEmoji={this.activeEmoji}
-                    isActive={eachEmoji.id === active}
-                  />
-                ))}
-              </ul>
-            </div>
-            <div className="dropdown-container">
-              <div>
-                <select className="dropdown" onChange={this.onChangeEmoji}>
-                  {emojisList.map(eachName => (
-                    <EmojiName
-                      eachName={eachName}
-                      emoji={emoji}
-                      key={eachName.id}
-                    />
-                  ))}
-                </select>
-                <select className="dropdown" onChange={this.onChangeDay}>
-                  {daysList.map(weekDays => (
-                    <WeekDays
-                      weekDays={weekDays}
-                      days={days}
-                      key={weekDays.id}
-                    />
-                  ))}
-                </select>
+      <div>
+        <div className="emoji-selector">
+          <h3>Emojis:</h3>
+          <div className="emoji-list">
+            {emojisList.map(emoji => (
+              // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+              <div
+                key={emoji.id}
+                className={`emoji ${
+                  activeEmoji === emoji ? 'active' : 'normal'
+                }`}
+                onClick={() => this.handleEmojiClick(emoji)}
+              >
+                <img src={emoji.emojiUrl} alt={emoji.emojiName} />
+                <p>{emoji.emojiName}</p>
               </div>
-              <p className="count">{count}</p>
-            </div>
+            ))}
+          </div>
+        </div>
+        <div className="calendar">
+          <h3>Calendar:</h3>
+          <div className="days">
+            {daysList.map(day => (
+              // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+              <div
+                key={day.id}
+                className={`day ${selectedDay === day.day ? 'selected' : ''}`}
+                onClick={() => this.handleDayClick(day.day)}
+              >
+                {day.day}
+              </div>
+            ))}
+          </div>
+          <div className="dates">
+            {datesList.map(dateItem => (
+              <div key={dateItem.date} className="date">
+                {dateItem.date}
+                {dateItem.emojiName && (
+                  <img
+                    src={
+                      emojisList.find(
+                        emoji => emoji.emojiName === dateItem.emojiName,
+                      ).emojiUrl
+                    }
+                    alt={dateItem.emojiName}
+                  />
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>
     )
   }
 }
-export default MonthlyEmojis
+
+export default EmojiCalendar
