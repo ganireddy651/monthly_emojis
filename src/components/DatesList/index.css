@@ -3,7 +3,7 @@
 }
 .date-button {
   height: 40px;
-  width: 40px;
+  width: auto;
 }
 .date-emoji {
   height: 10px;

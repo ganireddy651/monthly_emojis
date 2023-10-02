@@ -3,6 +3,7 @@
   border: 0;
   outline: none;
   margin: 5px;
+  cursor: pointer;
 }
 .emoji-name {
   color: #ffffff;
@@ -12,11 +13,14 @@
   width: 40px;
 }
 .button-active {
+  background-color: white;
   border: 0;
-  background-color: transparent;
   cursor: pointer;
   float: left;
+  height: 100px;
+  width: 100px;
+  border-radius: 5px;
 }
 .active-name {
-  color: #ffffff;
+  color: #000000;
 }
